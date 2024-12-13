@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login - Alumni Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: blue;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .form-container label {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 1.2em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .form-container button {
+      width: 100%;
+      padding: 15px;
+      background-color: blue;
+      color: white;
+      font-size: 1.2em;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background-color: violet;
+    }
+    .form-container .error {
+      color: red;
+      font-size: 1em;
+      margin-top: 10px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <h1>Login - Alumni Platform</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="form-container">
+      <h2>Login to Your Account</h2>
+      <form id="login-form">
+        <label for="student-name">Gmail</label>
+        <input type="text" id="student-name" name="student-name" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Login</button>
+        <div class="error" id="error-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Alumni Platform. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Form Validation -->
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Reset error message
+      document.getElementById('error-message').innerText = '';
+
+      // Get form values
+      const studentName = document.getElementById('student-name').value;
+      const password = document.getElementById('password').value;
+
+      // Credentials mapping
+      const users = {
+  "upadhyaygauraveightmarchfour@gmail.com": { password: "123", dashboard: "dashboard1.html" },
+  "gaurav@gmail.com": { password: "1234", dashboard: "dashboard2.html" },
+  "madu@gmail.com": { password: "12345", dashboard: "dashboard3.html" },
+  "siri@gmail.com": { password: "123456", dashboard: "dashboard4.html" },
+  "madhugowd18@gmail.com": { password: "112345678", dashboard: "dashboard5.html" },
+  "sirinakka03@gmail.com": { password: "112345678", dashboard: "dashboard6.html" },
+  "nihariaesther@gmail.com": { password: "112345678", dashboard: "dashboard7.html" },
+  "Nooguriswetha@gmail.com": { password: "112345678", dashboard: "dashboard8.html" },
+  "abdulhameedkhan646.ahk@gmail.com": { password: "112345678", dashboard: "dashboard9.html" }
+};
+
+
+      // Validate credentials
+      if (users[studentName] && users[studentName].password === password) {
+        // Redirect to respective dashboard
+        window.location.href = users[studentName].dashboard;
+      } else {
+        // Show error if credentials are incorrect
+        document.getElementById('error-message').innerText = 'Invalid credentials! Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>

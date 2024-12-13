@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      width: 90%;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #0073e6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .user-info {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .user-info h2 {
+      margin-top: 0;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .option {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .option:hover {
+      transform: scale(1.05);
+    }
+    .option h3 {
+      margin: 0;
+      color: #0073e6;
+    }
+    .upload-form {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .upload-form label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .upload-form input, .upload-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .upload-form button {
+      background-color: #0073e6;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .upload-form button:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Welcome to Your Dashboard</h1>
+  </div>
+
+  <div class="container">
+    <div class="user-info">
+      <h2>My Profile</h2>
+      <p id="user-name">Name: Gaurav</p>
+      <p id="user-college">College: St Mary's Engineering College </p>
+      <p id="user-bio">Bio: My name is Gaurav. CSE - ||| Year </p>
+      <p id="user-slogan">Slogan: Livelife</p>
+      <p id="user-email">Email: gaurav@gmail.com</p> <!-- Added Gmail info -->
+      <img id="profile-image" src="data:image/jpeg;base64,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" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+    </div>
+
+    <div class="options">
+        <a href="networking.html" class="option" id="networking">
+          <h3>Networking</h3>
+          <p>Connect with fellow alumni.</p>
+        </a>
+        <a href="event-management.html" class="option" id="event-management">
+          <h3>Event Management</h3>
+          <p>Create and manage events.</p>
+        </a>
+        <a href="fundraising.html" class="option" id="fundraising">
+          <h3>Fundraising</h3>
+          <p>Support or request funds.</p>
+        </a>
+        <a href="sponsorship.html" class="option" id="sponsorship">
+          <h3>Sponsorship</h3>
+          <p>Find or offer sponsorships.</p>
+        </a>
+      </div>
+        
+      <script>
+        function navigateToSection(id) {
+          window.location.href = `#${id}`;
+        }
+      </script>
+      
+
+   <!-- <div class="upload-form">
+      <h2>Upload or Update Your Information</h2>
+      <form id="upload-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+
+        <label for="slogan">Slogan:</label>
+        <input type="text" id="slogan" placeholder="Enter your slogan">
+
+        <label for="profile-image-upload">Upload Profile Image:</label>
+        <input type="file" id="profile-image-upload" accept="image/*">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email">
+
+        <button type="submit">Save Information</button>
+      </form>
+    </div>
+  </div>
+-->
+  <script>
+    // Fetch user data when the page loads
+    window.onload = function() {
+      fetch('/user-data', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // If you're using token-based authentication, include the token here
+          // 'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'User data fetched successfully') {
+          const user = data.user;
+          
+          // Display user information
+          document.getElementById("user-name").textContent = `Name: ${user.studentName}`;
+          document.getElementById("user-college").textContent = `College: ${user.collegeName}`;
+          document.getElementById("user-bio").textContent = `Bio: ${user.bio || 'Not provided'}`;
+          document.getElementById("user-slogan").textContent = `Slogan: ${user.slogan || 'Not provided'}`;
+          document.getElementById("profile-image").src = user.profileImage || ''; // Update profile image
+          // Add Gmail to the dashboard
+          document.getElementById("user-email").textContent = `Email: ${user.email || 'Not provided'}`;
+        } else {
+          alert('User not logged in: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+    };
+
+    // Handle form submission for uploading information
+    document.getElementById("upload-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById("name").value;
+      const bio = document.getElementById("bio").value;
+      const slogan = document.getElementById("slogan").value;
+      const email = document.getElementById("email").value;
+      const profileImage = document.getElementById("profile-image-upload").files[0];
+
+      // Update the user information on the dashboard
+      document.getElementById("user-name").textContent = `Name: ${name || 'Not provided'}`;
+      document.getElementById("user-bio").textContent = `Bio: ${bio || 'Not provided'}`;
+      document.getElementById("user-slogan").textContent = `Slogan: ${slogan || 'Not provided'}`;
+      document.getElementById("user-email").textContent = `Email: ${email || 'Not provided'}`;
+      
+      // Handle profile image upload if provided
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append("profileImage", profileImage);
+        fetch("/upload-profile-image", {
+          method: "POST",
+          body: formData
+        }).then(response => response.json()).then(data => {
+          console.log("Image uploaded successfully:", data);
+          document.getElementById("profile-image").src = data.imagePath || ''; // Update profile image
+        }).catch(error => {
+          console.error("Error uploading image:", error);
+        });
+      }
+      
+      alert("Information updated successfully!");
+    });
+  </script>
+</body>
+</html>

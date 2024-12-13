@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fundraising Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #0073e6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .fund-list {
+      margin-top: 20px;
+    }
+    .fund-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .fund-card h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    .fund-card p {
+      color: #777;
+    }
+    .fund-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+    .fund-form input, .fund-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .fund-form button {
+      background-color: #0073e6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .fund-form button:hover {
+      background-color: #005bb5;
+    }
+    .view-other-btn {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .view-other-btn:hover {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Fundraising Management</h1>
+    <p>Request and Donate for Fundraising Causes</p>
+  </div>
+
+  <div class="container">
+    <!-- Fundraising Upload Form -->
+    <div class="fund-form">
+      <h2>Request Funding</h2>
+      <form id="fund-form">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <textarea id="idea" rows="4" placeholder="Your Funding Idea" required></textarea>
+        <input type="text" id="college" placeholder="Your College Name" required>
+        <input type="number" id="amount" placeholder="Amount Needed" required>
+        <button type="submit">Submit Your Request</button>
+      </form>
+    </div>
+
+    <!-- Button to View Others' Fundraising Requests -->
+    <a href="other-fund.html" class="view-other-btn">View Fundraising Requests</a>
+
+    <!-- Fund List -->
+    <div class="fund-list" id="fund-list">
+      <h2>Fundraising Requests</h2>
+      <!-- Fund requests will be dynamically added here -->
+    </div>
+  </div>
+
+  <script>
+    // Function to handle fundraising request submission
+    document.getElementById("fund-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get the input values
+      const name = document.getElementById("name").value;
+      const idea = document.getElementById("idea").value;
+      const college = document.getElementById("college").value;
+      const amount = document.getElementById("amount").value;
+
+      // Create new fundraising request card
+      const fundCard = document.createElement("div");
+      fundCard.classList.add("fund-card");
+
+      // Add request details to the card
+      fundCard.innerHTML = `
+        <h3>${name}</h3>
+        <p><strong>Idea:</strong> ${idea}</p>
+        <p><strong>College:</strong> ${college}</p>
+        <p><strong>Amount Needed:</strong> ₹${amount}</p>
+        <a href="https://wa.me/9933315128?text=Hi!%20I%20want%20to%20donate%20₹${amount}%20to%20the%20fundraising%20cause%20of%20${idea}.%20Please%20share%20details." class="view-other-btn" target="_blank">Donate via WhatsApp</a>
+      `;
+
+      // Append the new fundraising card to the fund list
+      document.getElementById("fund-list").appendChild(fundCard);
+
+      // Clear the form after submission
+      document.getElementById("fund-form").reset();
+    });
+  </script>
+
+</body>
+</html>

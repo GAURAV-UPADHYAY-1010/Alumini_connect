@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #0073e6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .event-list {
+      margin-top: 20px;
+    }
+    .event-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .event-card h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    .event-card p {
+      color: #777;
+    }
+    .event-form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+    .event-form input, .event-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .event-form button {
+      background-color: #0073e6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .event-form button:hover {
+      background-color: #005bb5;
+    }
+    .view-other-btn {
+      background-color: blue;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .view-other-btn:hover {
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Event Management</h1>
+    <p>View and Upload Events</p>
+  </div>
+
+  <div class="container">
+    <!-- Event Upload Form -->
+    <div class="event-form">
+      <h2>Upload New Event</h2>
+      <form id="event-form">
+        <input type="text" id="event-title" placeholder="Event Title" required>
+        <textarea id="event-description" rows="4" placeholder="Event Description" required></textarea>
+        <input type="date" id="event-date" required>
+        <button type="submit">Submit Event</button>
+      </form>
+    </div>
+
+    <!-- Button to View Colleagues' Events -->
+    <a href="other.html" class="view-other-btn">View Colleagues' Events</a>
+
+    <!-- Event List -->
+    <div class="event-list" id="event-list">
+      <h2>Upcoming Events</h2>
+      <!-- Events will be dynamically added here -->
+    </div>
+  </div>
+
+  <script>
+    // Function to handle event submission
+    document.getElementById("event-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Get the input values
+      const title = document.getElementById("event-title").value;
+      const description = document.getElementById("event-description").value;
+      const date = document.getElementById("event-date").value;
+
+      // Create new event card
+      const eventCard = document.createElement("div");
+      eventCard.classList.add("event-card");
+
+      // Add event title, description, and date to the card
+      eventCard.innerHTML = `
+        <h3>${title}</h3>
+        <p>${description}</p>
+        <p><strong>Date:</strong> ${date}</p>
+      `;
+
+      // Append the new event card to the event list
+      document.getElementById("event-list").appendChild(eventCard);
+
+      // Clear the form after submission
+      document.getElementById("event-form").reset();
+    });
+  </script>
+
+</body>
+</html>

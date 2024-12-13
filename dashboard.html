@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      width: 90%;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #0073e6;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .user-info {
+      background-color: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .user-info h2 {
+      margin-top: 0;
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .option {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .option:hover {
+      transform: scale(1.05);
+    }
+    .option h3 {
+      margin: 0;
+      color: #0073e6;
+    }
+    .edit-profile {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .edit-profile label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    .edit-profile input, .edit-profile textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .edit-profile button {
+      background-color: #0073e6;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .edit-profile button:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Welcome to Your Dashboard</h1>
+  </div>
+
+  <div class="container">
+    <div class="user-info">
+      <h2>User Information</h2>
+      <p id="user-name">Name: Loading...</p>
+      <p id="user-college">College: Loading...</p>
+      <p id="user-bio">Bio: Loading...</p>
+      <p id="user-slogan">Slogan: Loading...</p>
+      <p id="user-email">Email: Loading...</p> <!-- Added Gmail info -->
+      <img id="profile-image" src="" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+    </div>
+
+    <div class="options">
+      <div class="option" id="networking">
+        <h3>Networking</h3>
+        <p>Connect with fellow alumni.</p>
+      </div>
+      <div class="option" id="event-management">
+        <h3>Event Management</h3>
+        <p>Create and manage events.</p>
+      </div>
+      <div class="option" id="fundraising">
+        <h3>Fundraising</h3>
+        <p>Support or request funds.</p>
+      </div>
+      <div class="option" id="sponsorship">
+        <h3>Sponsorship</h3>
+        <p>Find or offer sponsorships.</p>
+      </div>
+    </div>
+
+    <div class="edit-profile">
+      <h2>Edit Profile</h2>
+      <form id="edit-profile-form">
+        <label for="profile-image-upload">Upload Profile Image:</label>
+        <input type="file" id="profile-image-upload" accept="image/*">
+
+        <label for="bio">Write About Yourself:</label>
+        <textarea id="bio" rows="4" placeholder="Tell us about yourself..."></textarea>
+
+        <label for="slogan">Your Slogan:</label>
+        <input type="text" id="slogan" placeholder="Enter your slogan">
+
+        <button type="submit">Save Profile</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Fetch user data when the page loads
+    window.onload = function() {
+      fetch('/user-data', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // If you're using token-based authentication, include the token here
+          // 'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === 'User data fetched successfully') {
+          const user = data.user;
+          
+          // Display user information
+          document.getElementById("user-name").textContent = `Name: ${user.studentName}`;
+          document.getElementById("user-college").textContent = `College: ${user.collegeName}`;
+          document.getElementById("user-bio").textContent = `Bio: ${user.bio || 'Not provided'}`;
+          document.getElementById("user-slogan").textContent = `Slogan: ${user.slogan || 'Not provided'}`;
+          document.getElementById("profile-image").src = user.profileImage || ''; // Update profile image
+          // Add Gmail to the dashboard
+          document.getElementById("user-email").textContent = `Email: ${user.email || 'Not provided'}`;
+        } else {
+          alert('User not logged in: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+    };
+
+    // Edit profile form submission
+    document.getElementById("edit-profile-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+  
+      const bio = document.getElementById("bio").value;
+      const slogan = document.getElementById("slogan").value;
+      const profileImage = document.getElementById("profile-image-upload").files[0];
+  
+      // Update user data
+      const userData = {
+        bio,
+        slogan
+      };
+  
+      document.getElementById("user-bio").textContent = `Bio: ${userData.bio}`;
+      document.getElementById("user-slogan").textContent = `Slogan: ${userData.slogan}`;
+  
+      alert("Profile updated successfully!");
+  
+      // Upload profile image to server (this would require backend support)
+      if (profileImage) {
+        const formData = new FormData();
+        formData.append("profileImage", profileImage);
+        fetch("/upload-profile-image", {
+          method: "POST",
+          body: formData
+        }).then(response => response.json()).then(data => {
+          console.log("Image uploaded successfully:", data);
+          document.getElementById("profile-image").src = data.imagePath || ''; // Update profile image
+        }).catch(error => {
+          console.error("Error uploading image:", error);
+        });
+      }
+    });
+  </script>
+</body>
+</html>
